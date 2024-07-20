@@ -29,10 +29,9 @@ export default function RootLayout({
         <div>
           <header className="bg-blue-500 text-white p-4">
             <nav className="container mx-auto flex justify-between">
-              <Link href="/posts">My Blog</Link>
+              <Link href="/">My Blog</Link>
               <div>
-                <Link href="/posts">Blog</Link>
-                <Link href="/posts/create">Create Post</Link>
+                <Link href="/create">Create</Link>
               </div>
             </nav>
           </header>

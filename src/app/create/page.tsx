@@ -4,8 +4,8 @@ import { useRouter } from "next/navigation";
 
 const CreatePost: React.FC = () => {
   const [title, setTitle] = useState<string>("");
-  const [description, setDescription] = useState<string>("");
-  const [date, setDate] = useState<string>("");
+  const [email, setEmail] = useState<string>("alice@prisma.io");
+  const [content, setContent] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
@@ -15,10 +15,10 @@ const CreatePost: React.FC = () => {
     setLoading(true);
     setError(null);
 
-    const newPost = { title, description, date };
+    const newPost = { title, content, authorEmail: email };
 
     try {
-      const response = await fetch("/api/blog", {
+      const response = await fetch("/api/posts", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -28,9 +28,9 @@ const CreatePost: React.FC = () => {
 
       if (response.ok) {
         setTitle("");
-        setDescription("");
-        setDate("");
-        router.push("/posts");
+        setContent("");
+        setEmail("alice@prisma.io");
+        router.push("/");
       } else {
         const errorData = await response.json();
         setError(errorData.message || "Failed to create post");
@@ -73,14 +73,14 @@ const CreatePost: React.FC = () => {
         <div className="mb-4">
           <label
             className="block text-gray-700 text-sm font-bold mb-2"
-            htmlFor="description"
+            htmlFor="content"
           >
-            Description
+            content
           </label>
           <textarea
-            id="description"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
+            id="content"
+            value={content}
+            onChange={(e) => setContent(e.target.value)}
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             required
           />
@@ -88,15 +88,15 @@ const CreatePost: React.FC = () => {
         <div className="mb-4">
           <label
             className="block text-gray-700 text-sm font-bold mb-2"
-            htmlFor="date"
+            htmlFor="email"
           >
-            Date
+            Email
           </label>
           <input
             id="date"
-            type="date"
-            value={date}
-            onChange={(e) => setDate(e.target.value)}
+            type="text"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             required
           />
