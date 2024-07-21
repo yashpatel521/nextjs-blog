@@ -7,7 +7,7 @@ import { useAuth } from "@/context/AuthContext";
 import { POST } from "@/lib/request";
 
 const CreatePage = () => {
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [title, setTitle] = useState<string>("");
   const [email, setEmail] = useState<string>();
   const [content, setContent] = useState<string>("");

@@ -25,7 +25,7 @@ const Blog = () => {
     fetchPosts();
   }, []);
 
-  const handleDelete = (id: number) => {
+  const handleDelete = (id: string) => {
     setPosts(posts.filter((post) => post.id !== id));
   };
 

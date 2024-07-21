@@ -1,20 +1,22 @@
 import prisma from "@/lib/prisma";
-
+import { NextResponse } from "next/server";
 export async function DELETE(
   request: Request,
   { params }: { params: { id: string } }
 ) {
-  // Get id from params
+  const { id } = params; // Destructure id from params
+
   try {
     await prisma.post.delete({
-      where: { id: parseInt(params.id) },
+      where: { id },
     });
-    return Response.json({
+    return NextResponse.json({
       success: true,
       message: "Post deleted successfully",
     });
   } catch (error) {
-    return Response.json({
+    console.error(error);
+    return NextResponse.json({
       success: false,
       message: error,
     });
@@ -26,7 +28,7 @@ export async function PUT(
   { params }: { params: { id: string } }
 ) {
   const body = await request.json();
-  const id = +params.id;
+  const id = params.id;
   try {
     const updatedPost = await prisma.post.update({
       where: { id },

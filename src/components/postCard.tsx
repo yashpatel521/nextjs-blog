@@ -8,9 +8,9 @@ const PostCard = ({
   onDelete,
 }: {
   post: PostType;
-  onDelete: (id: number) => void;
+  onDelete: (id: string) => void;
 }) => {
-  const handleDelete = async (id: number) => {
+  const handleDelete = async (id: string) => {
     try {
       const data = await DELETE(`/posts/${id}`);
       if (data.success) {

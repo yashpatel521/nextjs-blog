@@ -5,7 +5,7 @@ export interface ResponseType {
 }
 
 export interface PostType {
-  id: number;
+  id: string;
   title: string;
   content: string;
   createdAt: string;
