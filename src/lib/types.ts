@@ -10,3 +10,9 @@ export interface PostType {
   content: string;
   createdAt: string;
 }
+
+export interface UserType {
+  id: number;
+  name: string;
+  email: string;
+}

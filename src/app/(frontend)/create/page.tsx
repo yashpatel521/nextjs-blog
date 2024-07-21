@@ -1,23 +1,28 @@
+// src/pages/create.tsx
 "use client";
-import React, { useState, FormEvent, useEffect } from "react";
-import { useRouter } from "next/navigation";
-import { POST } from "@/lib/request";
-import { useAuth } from "@/context/AuthContext";
 
-const CreatePost: React.FC = () => {
+import React, { useEffect, useState, FormEvent } from "react";
+import { useRouter } from "next/navigation";
+import { useAuth } from "@/context/AuthContext";
+import { POST } from "@/lib/request";
+
+const CreatePage = () => {
+  const [loading, setLoading] = useState(true);
   const [title, setTitle] = useState<string>("");
-  const [email, setEmail] = useState<string>("alice@prisma.io");
+  const [email, setEmail] = useState<string>();
   const [content, setContent] = useState<string>("");
-  const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
   const { user } = useAuth();
   console.log(user);
+
   useEffect(() => {
     if (!user) {
       router.replace("/login");
+    } else {
+      setEmail(user.email);
     }
-  }, [user]);
+  }, [user, router]);
 
   if (!user) {
     return <div>Redirecting...</div>;
@@ -120,4 +125,4 @@ const CreatePost: React.FC = () => {
   );
 };
 
-export default CreatePost;
+export default CreatePage;

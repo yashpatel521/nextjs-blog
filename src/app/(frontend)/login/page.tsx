@@ -4,6 +4,7 @@ import { POST } from "@/lib/request";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { useAuth } from "@/context/AuthContext";
+import { UserType } from "@/lib/types";
 
 const LoginPage: React.FC = () => {
   const router = useRouter();
@@ -21,7 +22,8 @@ const LoginPage: React.FC = () => {
     });
 
     if (response.success) {
-      login(JSON.stringify(response.data));
+      const user: UserType = response.data;
+      login(user);
       router.replace("/");
     } else {
       setError(response.message || "Invalid login");
