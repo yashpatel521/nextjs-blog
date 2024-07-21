@@ -1,6 +1,8 @@
 "use client";
-import React, { useState, FormEvent } from "react";
+import React, { useState, FormEvent, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { POST } from "@/lib/request";
+import { useAuth } from "@/context/AuthContext";
 
 const CreatePost: React.FC = () => {
   const [title, setTitle] = useState<string>("");
@@ -9,7 +11,17 @@ const CreatePost: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
+  const { user } = useAuth();
+  console.log(user);
+  useEffect(() => {
+    if (!user) {
+      router.replace("/login");
+    }
+  }, [user]);
 
+  if (!user) {
+    return <div>Redirecting...</div>;
+  }
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setLoading(true);
@@ -18,22 +30,15 @@ const CreatePost: React.FC = () => {
     const newPost = { title, content, authorEmail: email };
 
     try {
-      const response = await fetch("/api/posts", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(newPost),
-      });
+      const response = await POST("/posts", newPost);
 
-      if (response.ok) {
+      if (response.success) {
         setTitle("");
         setContent("");
         setEmail("alice@prisma.io");
-        router.push("/");
+        router.replace("/");
       } else {
-        const errorData = await response.json();
-        setError(errorData.message || "Failed to create post");
+        setError(response.message || "Failed to create post");
       }
     } catch (error) {
       setError("Failed to create post: " + (error as Error).message);

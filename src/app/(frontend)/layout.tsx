@@ -3,6 +3,9 @@ import "./globals.css";
 import { Inter as FontSans } from "next/font/google";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
+import Header from "@/components/header";
+import Footer from "@/components/footer";
+import { AuthProvider } from "@/context/AuthContext";
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -26,20 +29,11 @@ export default function RootLayout({
           fontSans.variable
         )}
       >
-        <div>
-          <header className="bg-blue-500 text-white p-4">
-            <nav className="container mx-auto flex justify-between">
-              <Link href="/">My Blog</Link>
-              <div>
-                <Link href="/create">Create</Link>
-              </div>
-            </nav>
-          </header>
-          <main className="container mx-auto p-4">{children}</main>
-          <footer className="bg-blue-500 text-white p-4 text-center">
-            © 2024 My Blog
-          </footer>
-        </div>
+        <AuthProvider>
+          <Header />
+          {children}
+          <Footer />
+        </AuthProvider>
       </body>
     </html>
   );
