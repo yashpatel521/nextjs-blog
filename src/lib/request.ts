@@ -23,12 +23,13 @@ export async function POST(url: string, body: any): Promise<ResponseType> {
   return data;
 }
 
-export async function DELETE(url: string): Promise<ResponseType> {
+export async function DELETE(url: string, body: any): Promise<ResponseType> {
   const response = await fetch(`/api${url}`, {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",
     },
+    body: JSON.stringify(body),
   });
   const data: ResponseType = await response.json();
   return data;

@@ -12,7 +12,9 @@ const PostCard = ({
 }) => {
   const handleDelete = async (id: string) => {
     try {
-      const data = await DELETE(`/posts/${id}`);
+      const data = await DELETE(`/posts`, {
+        id,
+      });
       if (data.success) {
         onDelete(id);
       } else {
