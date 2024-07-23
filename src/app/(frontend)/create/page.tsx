@@ -1,4 +1,3 @@
-// src/pages/create.tsx
 "use client";
 
 import React, { useEffect, useState, FormEvent } from "react";
@@ -26,6 +25,7 @@ const CreatePage = () => {
   if (!user) {
     return <div>Redirecting...</div>;
   }
+
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setLoading(true);
@@ -39,7 +39,7 @@ const CreatePage = () => {
       if (response.success) {
         setTitle("");
         setContent("");
-        setEmail("alice@prisma.io");
+        setEmail("");
         router.replace("/");
       } else {
         setError(response.message || "Failed to create post");
@@ -57,7 +57,7 @@ const CreatePage = () => {
       <form onSubmit={handleSubmit} className="max-w-xl mx-auto">
         {error && (
           <div
-            className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4"
+            className="bg-red-100 dark:bg-red-800 border border-red-400 dark:border-red-700 text-red-700 dark:text-red-200 px-4 py-3 rounded relative mb-4"
             role="alert"
           >
             <span className="block sm:inline">{error}</span>
@@ -65,7 +65,7 @@ const CreatePage = () => {
         )}
         <div className="mb-4">
           <label
-            className="block text-gray-700 text-sm font-bold mb-2"
+            className="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2"
             htmlFor="title"
           >
             Title
@@ -75,45 +75,45 @@ const CreatePage = () => {
             type="text"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             required
           />
         </div>
         <div className="mb-4">
           <label
-            className="block text-gray-700 text-sm font-bold mb-2"
+            className="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2"
             htmlFor="content"
           >
-            content
+            Content
           </label>
           <textarea
             id="content"
             value={content}
             onChange={(e) => setContent(e.target.value)}
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             required
           />
         </div>
         <div className="mb-4">
           <label
-            className="block text-gray-700 text-sm font-bold mb-2"
+            className="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2"
             htmlFor="email"
           >
             Email
           </label>
           <input
-            id="date"
+            id="email"
             type="text"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             required
           />
         </div>
         <div className="flex items-center justify-between">
           <button
             type="submit"
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            className="bg-indigo-600 dark:bg-indigo-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline hover:bg-indigo-700 dark:hover:bg-indigo-600"
             disabled={loading}
           >
             {loading ? "Submitting..." : "Create Post"}

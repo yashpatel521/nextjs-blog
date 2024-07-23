@@ -4,37 +4,44 @@
 import React from "react";
 import Link from "next/link";
 import { useAuth } from "@/context/AuthContext";
+import { ToggleTheme } from "./ui/toggleTheme";
 
 const Header = () => {
   const { user, logout } = useAuth();
 
   return (
-    <header className="bg-gray-800 text-white py-4">
+    <header className="py-4 shadow-md dark:shadow-slate-400">
       <div className="container mx-auto flex justify-between items-center">
-        <h1 className="text-2xl font-bold">
-          <Link href="/">My Blog</Link>
+        <h1 className="text-3xl font-extrabold tracking-tight">
+          <Link href="/" className="hover:opacity-75 transition duration-300">
+            My Blog
+          </Link>
         </h1>
-        <nav>
+        <nav className="flex items-center space-x-4">
           {user ? (
-            <div className="flex items-center">
-              <button
-                onClick={logout}
-                className="border p-1 rounded-md text-white hover:text-gray-300"
-              >
-                Log Out
-              </button>
+            <>
               <Link
                 href="/create"
-                className="border p-1 ml-2 rounded-md text-white hover:text-gray-300"
+                className="border py-2 px-4 rounded-md hover:opacity-75 transition duration-300"
               >
                 Create Post
               </Link>
-            </div>
+              <button
+                onClick={logout}
+                className="border py-2 px-4 rounded-md hover:opacity-75 transition duration-300"
+              >
+                Log Out
+              </button>
+            </>
           ) : (
-            <Link href="/login" className="text-white hover:text-gray-300">
+            <Link
+              href="/login"
+              className="border py-2 px-4 rounded-md hover:opacity-75 transition duration-300"
+            >
               Log In
             </Link>
           )}
+          <ToggleTheme />
         </nav>
       </div>
     </header>

@@ -43,7 +43,6 @@ const UpdatePostPage = () => {
     e.preventDefault();
     setLoading(true);
     setError(null);
-    console.log("Updating post", post);
     try {
       const response = await PUT(`/posts`, post);
       if (response.success) {
@@ -73,14 +72,14 @@ const UpdatePostPage = () => {
       <h1 className="text-3xl font-bold mb-6">Update Post</h1>
       <form onSubmit={handleUpdate} className="max-w-xl mx-auto">
         {error && (
-          <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+          <div className="bg-red-100 dark:bg-red-800 border border-red-400 dark:border-red-700 text-red-700 dark:text-red-200 px-4 py-3 rounded mb-4">
             {error}
           </div>
         )}
         <div className="mb-4">
           <label
             htmlFor="title"
-            className="block text-gray-700 text-sm font-bold mb-2"
+            className="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2"
           >
             Title
           </label>
@@ -97,7 +96,7 @@ const UpdatePostPage = () => {
         <div className="mb-4">
           <label
             htmlFor="content"
-            className="block text-gray-700 text-sm font-bold mb-2"
+            className="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2"
           >
             Content
           </label>
@@ -106,7 +105,7 @@ const UpdatePostPage = () => {
             name="content"
             value={post.content}
             onChange={handleChange}
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             placeholder="Enter content"
             rows={6}
             required
