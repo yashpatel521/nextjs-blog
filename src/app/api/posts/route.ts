@@ -2,10 +2,21 @@ import prisma from "@/lib/prisma";
 export const dynamic = "force-dynamic";
 
 export async function GET(request: Request) {
-  const posts = await prisma.post.findMany({
-    include: { author: true },
-  });
-  return Response.json({ success: true, data: posts });
+  const url = new URL(request.url);
+  const id = url.searchParams.get("id");
+  if (id) {
+    // get post by id
+    const post = await prisma.post.findUnique({
+      where: { id },
+      include: { author: true },
+    });
+    return Response.json({ success: true, data: post });
+  } else {
+    const posts = await prisma.post.findMany({
+      include: { author: true },
+    });
+    return Response.json({ success: true, data: posts });
+  }
 }
 
 export async function POST(request: Request) {
@@ -50,10 +61,14 @@ export async function DELETE(request: Request) {
 
 export async function PUT(request: Request) {
   const body = await request.json();
+  console.log("Updating post with body:", body);
   try {
     const updatedPost = await prisma.post.update({
       where: { id: body.id },
-      data: { ...body },
+      data: {
+        title: body.title,
+        content: body.content,
+      },
     });
     return Response.json({
       success: true,

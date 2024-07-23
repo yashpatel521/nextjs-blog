@@ -2,6 +2,15 @@ import { useAuth } from "@/context/AuthContext";
 import { DELETE } from "@/lib/request";
 import { PostType } from "@/lib/types";
 import React from "react";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "./ui/card"; // Assuming you have Card components in "./ui/card"
+import { Button } from "./ui/button";
+import Link from "next/link";
 
 const PostCard = ({
   post,
@@ -27,19 +36,25 @@ const PostCard = ({
   const { user } = useAuth();
 
   return (
-    <div key={post.id} className="border rounded-lg p-4 shadow-md">
-      <h2 className="text-2xl font-semibold mb-2">{post.title}</h2>
-      <p className="text-gray-700 mb-4">{post.content}</p>
-      <p className="text-gray-500 text-sm">{post.createdAt}</p>
+    <Card className="border rounded-lg p-4 shadow-md">
+      <CardHeader>
+        <CardTitle>{post.title}</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <p className="text-gray-700 mb-4">{post.content}</p>
+        <p className="text-gray-500 text-sm">{post.createdAt}</p>
+      </CardContent>
       {user && (
-        <button
-          onClick={() => handleDelete(post.id)}
-          className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
-        >
-          Delete
-        </button>
+        <CardFooter className="gap-2">
+          <Link href={`/update?id=${post.id}`}>
+            <Button variant="default">Update</Button>
+          </Link>
+          <Button onClick={() => handleDelete(post.id)} variant="destructive">
+            Delete
+          </Button>
+        </CardFooter>
       )}
-    </div>
+    </Card>
   );
 };
 

@@ -36,9 +36,11 @@ const Blog = () => {
   return (
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold mb-6">Blog</h1>
-      <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 grid-flow-row gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {posts?.map((post) => (
-          <PostCard key={post.id} post={post} onDelete={handleDelete} />
+          <div key={post.id} className="w-full">
+            <PostCard post={post} onDelete={handleDelete} />
+          </div>
         ))}
       </div>
     </div>

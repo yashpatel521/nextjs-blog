@@ -34,3 +34,15 @@ export async function DELETE(url: string, body: any): Promise<ResponseType> {
   const data: ResponseType = await response.json();
   return data;
 }
+
+export async function PUT(url: string, body: any): Promise<ResponseType> {
+  const response = await fetch(`/api${url}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(body),
+  });
+  const data: ResponseType = await response.json();
+  return data;
+}

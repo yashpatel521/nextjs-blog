@@ -14,7 +14,6 @@ const CreatePage = () => {
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
   const { user } = useAuth();
-  console.log(user);
 
   useEffect(() => {
     if (!user) {
