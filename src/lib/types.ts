@@ -9,6 +9,7 @@ export interface PostType {
   title: string;
   content: string;
   createdAt: string;
+  author: UserType;
 }
 
 export interface UserType {

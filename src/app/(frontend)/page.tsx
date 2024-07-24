@@ -6,6 +6,7 @@ import { PostType } from "@/lib/types";
 import { GET } from "@/lib/request";
 
 const Blog = () => {
+  // throw new Error("This is an error from the server");
   const [posts, setPosts] = useState<PostType[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
 

@@ -38,7 +38,9 @@ const PostCard = ({
   return (
     <Card className="border rounded-lg p-4 shadow-md">
       <CardHeader>
-        <CardTitle>{post.title}</CardTitle>
+        <CardTitle>
+          <Link href={`./blog?id=${post.id}`}>{post.title}</Link>
+        </CardTitle>
       </CardHeader>
       <CardContent>
         <p className="text-gray-700 mb-4">{post.content}</p>
