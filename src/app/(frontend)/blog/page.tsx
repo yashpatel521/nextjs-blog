@@ -1,9 +1,9 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { PostType } from "@/lib/types";
-import { DELETE } from "@/lib/request";
+import { DELETE, GET } from "@/lib/request";
 
 const Page = ({
   searchParams,
@@ -17,13 +17,11 @@ const Page = ({
   const [error, setError] = useState<string | null>(null);
   const id = searchParams.id;
   const router = useRouter();
-
+  console.log(id);
   useEffect(() => {
     const getData = async () => {
       try {
-        const response = await fetch(`/api/posts?id=${id}`).then((res) =>
-          res.json()
-        );
+        const response = await GET(`/posts?id=${id}`);
 
         if (response.success) {
           setBlogData(response.data);
