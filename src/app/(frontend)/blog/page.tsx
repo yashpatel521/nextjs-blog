@@ -96,7 +96,7 @@ const Page = ({
         <div className="text-gray-500 dark:text-gray-400 text-sm mb-6">
           <p>
             Author:{" "}
-            <span className="font-semibold">{blogData.author.name}</span>
+            <span className="font-semibold">{blogData.author?.name}</span>
           </p>
           <p>
             Created At:{" "}
