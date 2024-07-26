@@ -1,19 +1,17 @@
-export interface ResponseType {
-  success: boolean;
-  message?: string;
-  data?: any;
-}
-
-export interface PostType {
-  id: string;
-  title: string;
-  content: string;
-  createdAt: string;
-  author?: UserType;
-}
-
 export interface UserType {
-  id: number;
+  id: string;
   name: string;
   email: string;
 }
+
+export type PostType = {
+  id: string;
+  createdAt: Date;
+  updatedAt: Date;
+  title: string;
+  content: string | null;
+  published: boolean;
+  viewCount: number;
+  authorId: string;
+  author: UserType;
+};

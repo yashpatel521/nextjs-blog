@@ -1,5 +1,4 @@
-import { useAuth } from "@/context/AuthContext";
-import { DELETE } from "@/lib/request";
+"use client";
 import { PostType } from "@/lib/types";
 import React from "react";
 import {
@@ -11,47 +10,33 @@ import {
 } from "./ui/card"; // Assuming you have Card components in "./ui/card"
 import { Button } from "./ui/button";
 import Link from "next/link";
+import { useSession } from "next-auth/react";
+import { deletePost } from "@/lib/action";
 
-const PostCard = ({
-  post,
-  onDelete,
-}: {
-  post: PostType;
-  onDelete: (id: string) => void;
-}) => {
-  const handleDelete = async (id: string) => {
-    try {
-      const data = await DELETE(`/posts`, {
-        id,
-      });
-      if (data.success) {
-        onDelete(id);
-      } else {
-        console.error("Failed to delete post");
-      }
-    } catch (error) {
-      console.error("Failed to delete post:", error);
-    }
-  };
-  const { user } = useAuth();
-
+const PostCard = ({ post }: { post: PostType }) => {
+  const { data: session } = useSession();
   return (
     <Card className="border rounded-lg p-4 shadow-md">
       <CardHeader>
         <CardTitle>
-          <Link href={`./blog?id=${post.id}`}>{post.title}</Link>
+          <Link href={`./blog/${post.id}`}>{post.title}</Link>
         </CardTitle>
       </CardHeader>
       <CardContent>
         <p className="text-gray-700 mb-4">{post.content}</p>
-        <p className="text-gray-500 text-sm">{post.createdAt}</p>
+        <p className="text-gray-500 text-sm">{post.createdAt.toString()}</p>
       </CardContent>
-      {user && (
+      {session && (
         <CardFooter className="gap-2">
-          <Link href={`/update?id=${post.id}`}>
+          <Link href={`./blog/update/${post.id}`}>
             <Button variant="default">Update</Button>
           </Link>
-          <Button onClick={() => handleDelete(post.id)} variant="destructive">
+          <Button
+            variant="destructive"
+            onClick={async () => {
+              await deletePost(post.id);
+            }}
+          >
             Delete
           </Button>
         </CardFooter>

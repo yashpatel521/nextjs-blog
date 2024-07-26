@@ -1,11 +1,11 @@
+// src/app/layout.tsx
 import type { Metadata } from "next";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
-import { AuthProvider } from "@/context/AuthContext";
 import { Inter as FontSans } from "next/font/google";
-import { ThemeProvider } from "@/components/theme-provider";
+import ClientProviders from "@/components/ClientProviders";
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -19,9 +19,9 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
     <html lang="en">
       <body
@@ -30,18 +30,11 @@ export default function RootLayout({
           fontSans.variable
         )}
       >
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <AuthProvider>
-            <Header />
-            {children}
-            <Footer />
-          </AuthProvider>
-        </ThemeProvider>
+        <ClientProviders>
+          <Header />
+          {children}
+          <Footer />
+        </ClientProviders>
       </body>
     </html>
   );
