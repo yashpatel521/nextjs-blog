@@ -8,6 +8,6 @@ export async function POST(req: NextApiRequest, res: NextApiResponse) {
   return NextAuth(req, res, authConfig);
 }
 
-export async function GET(req: NextApiRequest, res: NextApiResponse) {
+export async function GET(req: any, res: any) {
   return NextAuth(req, res, authConfig);
 }
