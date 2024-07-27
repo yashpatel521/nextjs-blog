@@ -1,13 +1,6 @@
 import { authConfig } from "@/lib/authConfig";
 import NextAuth from "next-auth";
 
-import { NextApiRequest, NextApiResponse } from "next";
+const handler = NextAuth(authConfig);
 
-// This handler will be used for the HTTP POST method
-export async function POST(req: NextApiRequest, res: NextApiResponse) {
-  return NextAuth(req, res, authConfig);
-}
-
-export async function GET(req: any, res: any) {
-  return NextAuth(req, res, authConfig);
-}
+export { handler as GET, handler as POST };
